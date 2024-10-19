@@ -84,11 +84,11 @@ f_save_pose_evo.open("/home/jyp/3D_LiDAR_SLAM/pose_evo.txt", std::fstream::out);
 
 ![localization](./web/resources/localization.png)
 
-![mapping](./web/resources/dynamic_removal.png)
+![dynamic_removal](./web/resources/dynamic_removal.png)
 
-![mapping](./web/resources/ground_extraction.png)
+![ground_extraction](./web/resources/ground_extraction.png)
 
-![mapping](./web/resources/loop_closure.png)
+![loop_closure](./web/resources/loop_closure.png)
 
 For more results, please refer to our [paper](https://arxiv.org/abs/2410.13240)
 
