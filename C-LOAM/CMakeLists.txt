@@ -25,8 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
-set(OpenCV_DIR "/home/wsc/opencv-3.4.13/build")
-set(GTSAM_DIR "/home/jyp/3rdparty/gtsam-4.0.3/build") #4.0.3
+##set(GTSAM_DIR "/home/jyp/3rdparty/gtsam-4.0.3/build") #4.0.3
 find_package(GTSAM REQUIRED QUIET)
 find_package(PCL REQUIRED QUIET)
 find_package(OpenCV REQUIRED QUIET)
