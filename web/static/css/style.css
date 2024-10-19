@@ -1,0 +1,297 @@
+body {
+    font-family: IBM Plex Sans, sans-serif;
+    padding-bottom: 50px;
+    font-size: 100%;
+    line-height: 1.3em;
+    letter-spacing: -0.1pt;
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+a {
+    color: #11a1c0;
+    font-weight: 500;
+    text-decoration: none;
+}
+a:hover {
+    color: #006d85;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+#banner {
+    padding: 30px 0 0 0;
+    background-image: linear-gradient(#000000, #414d28);
+    box-shadow: 0 0 15px 30px #414d28;
+}
+
+.jumbotron {
+    color: #dddddd;
+}
+.jumbotron a {
+    color: #41c793;
+}
+.jumbotron a:hover {
+    color: #00ff9c;
+}
+
+#main a:hover {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+p {
+    text-align: justify;
+}
+
+hr {
+    background: #80808083;
+    margin: 30px 0 20px 0;
+    padding: 1px 0 0 0;
+    max-width: 1000px;
+}
+
+.jumbotron .btn-primary {
+    font-size: 110%;
+    color: #fff;
+    background-color: #4a6a0c;
+    border-color: #7b953b;
+    border-width: 3px;
+    margin: 0 5px 0 0;
+}
+.jumbotron .btn-primary:hover {
+    color: #fff;
+    background-color: #5c7f17;
+    border-color: #c7dc94;
+    font-weight: 500;
+}
+.jumbotron .btn-primary:active:hover {
+    background-color: #78a130;
+    border-color: #caff6e;
+}
+
+.jumbotron .btn-primary1 {
+    font-size: 110%;
+    color: #fff;
+    background-color: #877408;
+    border-color: #ffd903;
+    border-width: 3px;
+    margin: 0 5px 0 0;
+}
+.jumbotron .btn-primary1:hover {
+    color: #fff;
+    background-color: #ab930e;
+    border-color: #ffed8a;
+    font-weight: 500;
+}
+.jumbotron .btn-primary1:active:hover {
+    background-color: #ccb016;
+    border-color: #fcf1b3;
+}
+
+h2 {
+    font-size: 170%;
+    font-weight: 600;
+    padding: 0 20px 0 20px;
+}
+#name {
+    font-size: 120%;
+    font-weight: 700;
+    background: linear-gradient(to bottom, #cfc09f 22%, #634f2c 24%, #cfc09f 26%, #cfc09f 27%, #ffecb3 40%,#6a4c2f 78%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+h5 {
+    text-align: center;
+    font-size: 150%;
+    font-weight: 600;
+    padding: 10px 0 10px 0;
+}
+.author {
+    font-size: 110%;
+    font-weight: 500;
+    margin: 0 0 3px 0;
+    padding: 0 0 0 0;
+}
+.row-author {
+    margin: 0 70px 0 70px;
+}
+h9 {
+    font-size: 90%;
+    color: #999999;
+}
+
+.container {
+    max-width: 1000px;
+    padding: 0 20px 0 20px;
+}
+
+.all-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+}
+
+#title {
+    font-size: 105%;
+    padding: 0 0 10px 0;
+}
+#affiliation {
+    font-weight: 400;
+    font-size: 110%;
+    color: #96d428;
+    padding: 15px 0 5px 0;
+}
+#venue {
+    font-weight: 400;
+    font-size: 110%;
+    color: #FF5;
+    margin: 10px auto 10px auto;
+    padding: 0 20px 0 20px;
+}
+#venue b { font-weight: 600; }
+#highlight {
+    line-height: 1.5em;
+    font-weight: 600;
+    font-size: 130%;
+    color: #FFF;
+    text-shadow: 0px 0px 10px #FFF;
+}
+#pitch {
+    font-weight: 400;
+    font-size: 105%;
+    max-width: 745px;
+    color: #EEE;
+    margin: 20px auto 0 auto;
+}
+#inquiries {
+    font-weight: 400;
+    font-size: 100%;
+    color: #f5a82e;
+    max-width: 820px;
+    margin: 10px auto 0 auto;
+}
+#inquiries a { color: #0E8; }
+#inquiries a:hover { color: #4FB; }
+
+.buttons {
+    padding: 10px 0 0 0;
+}
+
+.column-2 {
+    position: relative;
+    float: left;
+    width: 50%;
+}
+.column-3 {
+    position: relative;
+    float: left;
+    width: 32%;
+    margin: 0 0 15px 0;
+}
+.column-4 {
+    position: relative;
+    float: left;
+    width: 25%;
+    height: 220px;
+}
+
+.enlarge {
+    padding-bottom: 10px;
+    margin: auto;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.large_video {
+    margin: 10px 0 0 0;
+    border: 1px solid #BBB;
+    box-shadow: 0 0 30px #792;
+}
+
+h6 {
+    font-size: 105%;
+    font-weight: 600;
+}
+.approach_video {
+    margin: 30px 0 20px 0;
+    border: 1px solid #BBB;
+    box-shadow: 0 0 30px #792;
+}
+.approach_text {
+    margin-left: 23px;
+    text-align: justify;
+}
+
+#citation {
+    line-height: 1.1em;
+    max-width: 750px;
+    letter-spacing: 0pt;
+    font: 95% "Inconsolata";
+    border: 2px solid #666;
+    margin: 20px auto 20px auto;
+    padding: 15px 15px 15px 15px;
+    box-shadow: 0 0 10px #FAF;
+}
+
+/* for recon list */
+li { 
+    cursor: pointer;
+}
+
+/* Style the buttons that are used to open the tab content */
+.nav-item {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    background-color: inherit;
+    float: left;
+    border: 1px solid #ddd;
+    outline: none;
+    cursor: pointer;
+    transition: 0.0s;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+/* Change background color of buttons on hover */
+.nav-item:hover {
+    background-color: #c7dc94;
+}
+
+/* Create an active/current tablink class */
+.nav-tabs .nav-link.active {
+    background-color: #5c7f17;
+    color:white;
+    font-weight: 500;
+}
+
+.nav a {
+    color: #000;
+    text-decoration: none;
+}
+.nav a:hover {
+    color: #000;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.b-dics__slider {
+    color: #f0f0f0;
+}
+.b-dics__slider:after {
+    width: 2px;
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
