@@ -1,28 +1,26 @@
-# :cupid: TRLO: An Efficient LiDAR Odometry with 3D Dynamic Object Tracking and Removal
+# :dolls: C-LOAM: A Compact LiDAR Odometry and Mapping with Dynamic Removal
 
-The official implementation of TRLO (An Efficient LiDAR Odometry with 3D Dynamic Object Tracking and Removal), an accurate LiDAR odometry approach targeted for dynamic environments. TRLO can provide continuous object tracking and accurate localization results while preserving the keyframe selection mechanism in the odometry system. This work is submitted for IEEE T-IM.
+The official implementation of C-LOAM (A Compact LiDAR Odometry and Mapping with Dynamic Removal), an accurate LiDAR odometry approach targeted for dynamic environments. C-LOAM achieve dynamic removal, ground extraction, and point cloud segmentation throught range image, showiing its compactedness. Additionally, we use ground points to estimate ground normal to impose ground contraints and feature submap to conduct loop closure detection. This work is accepted by IEEE ICUS 2024.
 
-Welcome to our [website](https://yaepiii.github.io/TRLO/) for more details.
+Welcome to our [website](https://yaepiii.github.io/C-LOAM/) for more details.
 
-![Video](./web/resources/TRLO.gif)
+![Video](./web/resources/C-LOAM.gif)
 
 If you think our work useful for your research, please cite:
 
 ```
-@misc{jia2024trloefficientlidarodometry,
-      title={TRLO: An Efficient LiDAR Odometry with 3D Dynamic Object Tracking and Removal}, 
-      author={Yanpeng Jia and Ting Wang and Xieyuanli Chen and Shiliang Shao},
-      year={2024},
-      eprint={2410.13240},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2410.13240}, 
+@misc{c-loam,
+      title={A Compact LiDAR Odometry and Mapping with Dynamic Removal}, 
+      author={Meifeng Zhang, Yanpeng Jia, Shiliang Shao and Shiyi Wang},
+      booktitle={2024 IEEE International Conference on Unmanned Systems (ICUS)},
+      year = {2024}
 }
 ```
 
 ## :mega: New
 
-- Oct. 17. 2024: :smiley_cat: Commit the codes!
+- Aug. 20. 2024: :v: Commit the codes!
+- Oct. 19. 2024: :star: Commit the codes!
 
 ## :gear: Installation
 
@@ -34,23 +32,15 @@ Our system has been tested extensively on Ubuntu 20.04 Focal with ROS Noetic, al
 - ROS Noetic (roscpp, std_msgs, sensor_msgs, geometry_msgs, pcl_ros, jsk_recognition_msgs)
 - C++ 14
 - CMake >= 3.22.3
-- OpenMP >= 4.5
 - Point Cloud Library >= 1.10.0
 - Eigen >= 3.3.7
-- Cuda 11.3
-- Cudnn 8.2.1
-- TensorRT 8.5.3.1
+- Ceres 1.14.0
+- GTSAM 4.0.3
 
-Installing the binaries from Aptitude should work though:
-
-```
-sudo apt install libomp-dev libpcl-dev libeigen3-dev 
-```
-
-You should replace the path in line 61 of `CMakeList.txt` with your TensorRT-8.5.3.1 installation path, such as:
+If you cannot compile successfully, you can uncomment the line 61 of `CMakeList.txt`, and replace it with your `GTSAM 4.0.3` installation path, such as:
 
 ```
-set(TENSORRT_ROOT /home/jyp/3rdparty/TensorRT-8.5.3.1)
+set(GTSAM_DIR "/home/jyp/3rdparty/gtsam-4.0.3/build") #4.0.3
 ```
 
 ### Building
@@ -62,21 +52,21 @@ You can use the following command to build the project:
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone git@github.com:Yaepiii/TRLO.git
+git clone git@github.com:Yaepiii/C-LOAM.git
 cd ..
 catkin_make
 ```
 
-## :running: Run
+## :snail: Run
 
-According to the dataset you want to test, you can modify the parameter values of `pointcloud_topic` and `imu_topic` in trlo.launch. If an IMU is not being used, set the `trlo/imu` ROS param to false in `cfg/trlo.yaml`. However, if IMU data is available, please allow TRLO to calibrate and gravity align for three seconds before moving. Note that the current implementation assumes that LiDAR and IMU coordinate frames coincide, so please make sure that the sensors are physically mounted near each other.
+According to the dataset you want to test, you can modify the parameter values of `pointCloudTopic` in `util.h`. If an IMU is used, modify the parameter values of `imuTopic` in `util.h`.
 
-After sourcing the workspace, launch the TRLO ROS nodes via:
+After sourcing the workspace, launch the C-LOAM ROS nodes via:
 
 ```bash
 #!/bin/bash
-# run TRLO node
-roslaunch trlo trlo.launch
+# run C-LOAM node
+roslaunch c_loam run.launch
 
 # play your bag
 rosbag play your_test.bag
@@ -84,37 +74,31 @@ rosbag play your_test.bag
 
 ## :clipboard: Evaluation
 
-### Services
+You can modify the pose file save path in line 232 of `mapOptmization.cpp` to save pose estimation results as TUM format, such that:
 
-To save TRLO's generated map into .pcd format, call the following service:
-
-```bash
-rosservice call /robot/trlo_map/save_pcd LEAF_SIZE SAVE_PATH
 ```
-
-To save the trajectory in KITTI format, call the following service:
-
-```bash
-rosservice call /robot/dlo_odom/save_traj SAVE_PAT
+f_save_pose_evo.open("/home/jyp/3D_LiDAR_SLAM/pose_evo.txt", std::fstream::out);
 ```
 
 ### Results
 
 ![localization](./web/resources/localization.png)
 
-![trajectory](./web/resources/trajectory.png)
+![mapping](./web/resources/dynamic_removal.png)
 
-![mapping](./web/resources/mapping.png)
+![mapping](./web/resources/ground_extraction.png)
+
+![mapping](./web/resources/loop_closure.png)
 
 For more results, please refer to our [paper](https://arxiv.org/abs/2410.13240)
 
 ## :rose: Acknowledgements
 
-We thank the authors of the [DLO](https://github.com/vectr-ucla/direct_lidar_odometry) and [CenterPoint](https://github.com/tianweiy/CenterPoint) open-source packages:
+We thank the authors of the [LeGO-LOAM](https://github.com/RobustFieldAutonomyLab/LeGO-LOAM) and [SC-LeGO-LOAM](https://github.com/gisbi-kim/SC-LeGO-LOAM?tab=readme-ov-file) open-source packages:
 
-- K. Chen, B. T. Lopez, A. -a. Agha-mohammadi and A. Mehta, "Direct LiDAR Odometry: Fast Localization With Dense Point Clouds," in IEEE Robotics and Automation Letters, vol. 7, no. 2, pp. 2000-2007, April 2022
+- . Shan and B. Englot, "LeGO-LOAM: Lightweight and Ground-Optimized Lidar Odometry and Mapping on Variable Terrain," 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Madrid, Spain, 2018, pp. 4758-4765
 
-- Yin, Tianwei et al. “Center-based 3D Object Detection and Tracking.” 2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2020): 11779-11788.
+- G. Kim and A. Kim, "Scan Context: Egocentric Spatial Descriptor for Place Recognition Within 3D Point Cloud Map," 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Madrid, Spain, 2018, pp. 4802-4809
 
 
 
