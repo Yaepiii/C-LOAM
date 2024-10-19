@@ -77,13 +77,15 @@
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="">Meifeng Zhang</a><sup>1</sup>
-            <span class="author-block">
-              <a href="https://yaepiii.github.io/">Yanpeng Jia*</a><sup>2,3</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://yaepiii.github.io/">Yanpeng Jia*</a><sup>2,3</sup></span>
+            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
               <a href="https://people.ucas.edu.cn/~shaoshiliang">Shiliang Shao*</a><sup>2</sup>
             </span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="author-block">
-              <a href="">Shiyi Wang</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="">Shiyi Wang</a><sup>2</sup>
             </span>
           </div>
           <!-- <br> -->
@@ -200,31 +202,23 @@
         <h2 class="title is-3" style="margin-top: -30px">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Simultaneous state estimation and mapping is an
-            essential capability for mobile robots working in dynamic urban
-            environment. The majority of existing SLAM solutions heavily
-            rely on a primarily static assumption. However, due to the
-            presence of moving vehicles and pedestrians, this assumption
-            does not always hold, leading to localization accuracy decreased
-            and maps distorted. To address this challenge, we propose
-            TRLO, a dynamic LiDAR odometry that efficiently improves
-            the accuracy of state estimation and generates a cleaner
-            point cloud map. To efficiently detect dynamic objects in the
-            surrounding environment, a deep learning-based method is
-            applied, generating detection bounding boxes. We then design
-            a 3D multi-object tracker based on Unscented Kalman Filter
-            (UKF) and nearest neighbor (NN) strategy to reliably identify
-            and remove dynamic objects. Subsequently, a fast two-stage
-            iterative nearest point solver is employed to solve the state
-            estimation using cleaned static point cloud. Note that a novel
-            hash-based keyframe database management is proposed for fast
-            access to search keyframes. Furthermore, all the detected object
-            bounding boxes are leveraged to impose posture consistency
-            constraint to further refine the final state estimation. Extensive
-            evaluations and ablation studies conducted on the KITTI and
-            UrbanLoco datasets demonstrate that our approach not only
-            achieves more accurate state estimation but also generates
-            cleaner maps, compared with baselines.
+            Real-time state estimation and mapping is a fundamental function
+            of unmanned systems. In this paper, we propose
+            a compact 3D Lidar odometry and mapping method (C-LOAM)
+            for real-time 6-DOF pose estimation and map construction for
+            unmanned ground vehicles. Our approach firstly remove dynamic
+            objects from the environment by comparing differences between
+            two consecutive range images. We then extract ground points
+            from the range image. The remaining points are segmented in the
+            range image to obtain robust feature points for the registration
+            stage. After performing two-stage scan-matching, we use the extracted
+            ground points to impose ground constraints and leverage
+            the local feature submap for loop closure detection. By employing
+            various data reuse strategies, we minimize memory consumption,
+            creating a compact and accurate system. Experiments on multiple
+            publicly available datasets demonstrate that our system provides
+            more accurate localization and higher-quality maps compared to
+            other state-of-the-art methods.
           </p>
         </div>
       </div>
@@ -240,8 +234,8 @@
         </div>
         <br><br><br>
         <h2 class="subtitle has-text-centered">
-            <strong style="font-size: 0.9em;">TRLO</strong> can efficiently track and remove dynamic objects, generating a cleaner map, and impose ground constraint through 
-          the detected bounding boxes posture consistency to refine pose estimation.
+            <strong style="font-size: 0.9em;">C-LOAM</strong> can efficiently remove dynamic objects, generating a cleaner map, and impose ground constraint through 
+          the proposed, simple, and accurate ground extraction method to refine pose estimation.
         </h2>
       </div>
     </div>
@@ -263,12 +257,19 @@
         </div>
         <div class="content has-text-justified">
           <p style="margin-top: 30px">
-            The pillars-based 3D object detector first is used for preprocessing of the raw point cloud to detect dynamic and
-            semi-static objects, resulting in the generation of a 3D object bounding boxes. Subsequently, 3D multi-object tracker is applied to identify and remove
-            dynamic objects. The adjacent static scans are input to calculate the scan-to-scan(S2S) transformation. The initial value is propagated to the world
-            frame and used for the secondary Fast GICP of scan-to-map(S2M). The current static scan is scan-matched with the submap composed of selective keyframes. Finally,
-            the S2M transformation is further optimized with the posture consistency constraint imposed by the detected bounding boxes to obtain a refined global
-            robot's pose, which is checked against multiple metrics to determine if it should be stored in keyframe hash dataset.
+            The system receives the
+            raw point cloud from the Lidar as input and performs a
+            spherical projection to obtain a range image. This range
+            image is used for dynamic removal and efficient ground
+            extraction. The remaining points are then segmented, and
+            robust features are extracted for scan-to-scan registration. In
+            the Mapping module, we use the spatial information of key
+            frames to build local feature submaps and use the pose
+            obtained from odometry as a prior for scan-to-map registration.
+            The ground points Gk extracted from the front-end are used to
+            impose ground constraints. Simultaneously, the local feature
+            submap is reused for loop detection to correct the global pose.
+            Finally, the global point cloud map and pose estimation are output.
         </div>
 
       </div>
@@ -304,30 +305,25 @@
 
     <div class="columns is-centered ">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Odometry Benchmark</h2>
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Localization Evaluation</h2>
 
         <div class="content has-text-justified">
           <p>
-            Compared with traditional LO systems, our approach
-            generally achieves encouraging performance through the
-            proposed dynamic removal and bounding box consistency
-            constraint strategies, especially for the highly dynamic sequences.
-            Additionally, the proposed method is superior to
-            LIO-SEGMOT and LIMOT (dynamic LO), apart from that the
-            APE of Urbanloco03 sequence is lower than that of LIMOT.
-            Notably, our approach can obtain competitive results
-            using only LiDAR scans as input, which demonstrates the
-            effectiveness of dynamic removal and robust registration
-            mechanism.
+            Our method achieves the highest accuracy across all sequences evaluated. Among them,
+            KITTI00 is an outdoor large-scale sequence with a total length of 3724m. Other methods
+            exhibit significant drift that persist even with loop closure
+            detection. In contrast, our approach achieves minimal drift
+            of only 1.12 meters, benefiting ground constraints and a loop
+            closure strategy based on local feature submap. Sequences like
+            KITTI05 and KITTI07, which feature multiple dynamic vehicles posing challenges to localization, are effectively manage
+            by our dynamic culling strategy. This approach successfully
+            filters out dynamic effects, maintaining high accuracy in
+            odometry estimation.
           </p>
         </div>
         
         <div class="hero-body">
           <img class="rounded" src="./web/resources/localization.png" >
-        </div>
-
-        <div class="hero-body">
-          <img class="rounded" src="./web/resources/trajectory.png" >
         </div>
 
         <br>
@@ -342,39 +338,56 @@
 
     <div class="columns is-centered ">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Mapping Results</h2>
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Mapping and Loop Closure Results</h2>
 
-        <h3 class="title is-4">Qualitative</h3>
+        <h3 class="title is-4">Dynamic Removal</h3>
         <div class="content has-text-justified">
           <p>
-            In the map generated by DLO,
-            we clearly see the severe ghosttail in the map caused by
-            moving cars. Comparatively, our method adeptly identifies
-            and filters moving objects while retaining valuable semi-static objects. Compared with LIO-SEGMOT, LIMOT
-            and RF-A-LOAM, our method shows better dynamic
-            removal performance. Ultimately, we obtain a high-precision
-            LiDAR odometry and build a cleaner map.
+            We compare the performance of
+            our proposed method with LeGO-LOAM in mapping
+            and dynamic object removal using the KITTI07 sequence. Our method utilizes a dynamic removal
+            strategy based on range images to effectively mitigate the
+            impact of dynamic objects in the environment and achieve
+            clearer map construction.
           </p>
         </div>
         
         <div class="hero-body">
-          <img class="rounded" src="./web/resources/mapping.png" >
+          <img class="rounded" src="./web/resources/dynamic_removal.png" >
         </div>
 
-        <h3 class="title is-4">Quantitative</h3>
+        <h3 class="title is-4">Ground Extraction</h3>
         <div class="content has-text-justified">
           <p>
-            The PR and RR in the Table represent
-            the preserved rate of the static points and the removed rate
-            of dynamic points. From the statistic, the PR scores of our
-            method are higher than other baselines, while the RR scores
-            are suboptimal to LIMOT. Balancing PR and RR, the
-            F1-Score of our method is competitive.
+            We demonstrate the benefits of our
+            enhanced ground extraction method using the KITTI05 sequence. It is evident that LeGO-LOAM
+            exhibits numerous false positives during ground extraction,
+            whereas our proposed method effectively mitigates this issue
+            and obtains more accurate ground points. This improvement
+            forms a crucial foundation for registration and ground constraint application.
           </p>
         </div>
         
         <div class="hero-body">
-          <img class="rounded" src="./web/resources/mapping2.png" >
+          <img class="rounded" src="./web/resources/ground_extraction.png" >
+        </div>
+
+        <h3 class="title is-4">Loop Closure Detection</h3>
+        <div class="content has-text-justified">
+          <p>
+            SCLeGO-LOAM produces a large number of false detections,
+            whereas our method ensures robust detection results. The local
+            magnification figure shows SC-LeGO-LOAM results using
+            the same parameters as our method. While using the same
+            parameters reduces the number of false detections for SC-LeGO-LOAM, it also diminishes its ability to detect correct
+            loops. Our method, benefiting from the large-scale properties
+            of submap and the robustness of extracted features, effectively
+            detects the correct loops.
+          </p>
+        </div>
+        
+        <div class="hero-body">
+          <img class="rounded" src="./web/resources/loop_closure" >
         </div>
 
         <br>
@@ -393,24 +406,27 @@
 
         <div class="content has-text-justified">
           <p>
-            <strong style="font-size: 0.9em;">Tracker</strong>: LO system with
-            UKF-based object tracker outperforms EKF-based, benefiting from the more robust dynamic tracking. Theoretically,
-            EKF addresses the nonlinear state estimation by using linear
-            approximation, which may introduce tracking bias.
+            <strong style="font-size: 0.9em;">Dynamic Removal</strong>:
+            The comparisons between (a) and (f)
+            demonstrate that the dynamic removal strategy enhances registration consistency, thereby improving localization accuracy.
+            However, this does not bring much improvement, we analyze the reason is that KITI05 does not have too many dynamic
+            objects, and the loop detection can correct for historical errors.
           </p>
           <p>
-            <strong style="font-size: 0.9em;">Dynamic Removal</strong>: The results
-            demonstrate that the outliers in the environment are effectively filtered by adding our dynamic removal step, resulting
-            in a more accurate odometry estimation. This improvement
-            is particularly obvious when dealing with the highly dynamic UrbanLoco dataset.
+            <strong style="font-size: 0.9em;">Ground Extraction</strong>:
+            From the comparisons between (b), (c), and (f), it is evident
+            that applying ground constraints effectively suppresses drift,
+            leading to a significant improvement in positioning accuracy.
+            Additionally, our method enables more accurate ground point
+            extraction compared to LeGO-LOAM ground extraction
+            method.
           </p>
           <p>
-            <strong style="font-size: 0.9em;">Bounding Box Consistency Constraint</strong>: The z-axis drift of the
-            odometry is effectively inhibited by imposing the bounding
-            box consistency constraint. Combined with dynamic removal
-            and bounding box consistency constraint, our complete system achieves more accurate results. The translation accuracy
-            of KITTI07 dataset and UrbanLoco05 dataset increases by
-            39.3% and 30.4%, respectively
+            <strong style="font-size: 0.9em;">Loop Closure Detection</strong>:
+            Interestingly, comparisons between (d), (e), and (f) reveal
+            that our method achieves promising accuracy even without
+            loop detection. Furthermore, loopback detection descriptors
+            using local feature subgraphs are more effective and competitive than those using raw point clouds.
           </p>
         </div>
         
