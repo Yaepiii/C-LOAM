@@ -19,8 +19,8 @@ If you think our work useful for your research, please cite:
 
 ## :mega: New
 
-- Aug. 20. 2024: :v: Commit the codes!
 - Oct. 19. 2024: :star: Commit the codes!
+- Aug. 20. 2024: :v: Paper is accepted by ICUS 2024!
 
 ## :gear: Installation
 
