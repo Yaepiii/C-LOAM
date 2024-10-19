@@ -229,7 +229,7 @@ public:
         nh("~")
     {
         boost::format fmt_pose("%s");
-		f_save_pose_evo.open("/home/jyp/3D_LiDAR_SLAM/pose_evo.txt", std::fstream::out);
+		f_save_pose_evo.open("your .txt save pose results path", std::fstream::out);
 
     	ISAM2Params parameters;
 		parameters.relinearizeThreshold = 0.01;
