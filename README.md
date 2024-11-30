@@ -69,7 +69,7 @@ After sourcing the workspace, launch the C-LOAM ROS nodes via:
 roslaunch c_loam run.launch
 
 # play your bag
-rosbag play your_test.bag
+rosbag play your_test.bag --clock
 ```
 
 ## :clipboard: Evaluation
