@@ -9,12 +9,17 @@ Welcome to our [website](https://yaepiii.github.io/C-LOAM/) for more details.
 If you think our work useful for your research, please cite:
 
 ```
-@misc{c-loam,
-      title={A Compact LiDAR Odometry and Mapping with Dynamic Removal}, 
-      author={Meifeng Zhang, Yanpeng Jia, Shiliang Shao and Shiyi Wang},
-      booktitle={2024 IEEE International Conference on Unmanned Systems (ICUS)},
-      year = {2024}
-}
+@INPROCEEDINGS{10839822,
+  author={Zhang, Meifeng and Jia, Yanpeng and Shao, Shiliang and Wang, Shiyi},
+  booktitle={2024 IEEE International Conference on Unmanned Systems (ICUS)}, 
+  title={A Compact LiDAR Odometry and Mapping with Dynamic Removal}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={813-818},
+  keywords={Location awareness;Laser radar;Accuracy;Three-dimensional displays;Autonomous systems;Pose estimation;Feature extraction;Real-time systems;Odometry;Vehicle dynamics;Localization;Mapping;SLAM;Field Robots},
+  doi={10.1109/ICUS61736.2024.10839822}}
+
 ```
 
 ## :mega: New
