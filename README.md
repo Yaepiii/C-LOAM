@@ -90,7 +90,7 @@ f_save_pose_evo.open("/home/jyp/3D_LiDAR_SLAM/pose_evo.txt", std::fstream::out);
 
 ![loop_closure](./web/resources/loop_closure.png)
 
-For more results, please refer to our [paper](https://arxiv.org/abs/2410.13240)
+For more results, please refer to our [paper](https://ieeexplore.ieee.org/abstract/document/10839822)
 
 ## :rose: Acknowledgements
 
